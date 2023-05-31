@@ -27,7 +27,7 @@ class PokemonListActivity : AppCompatActivity() {
         pokemonlistBinding = ActivityPokemonlistBinding.inflate(layoutInflater)
 
         viewModel = ViewModelProvider(this)[PokemonListViewModel::class.java]
-
+//5
 
         val view = pokemonlistBinding.root
         setContentView(view)

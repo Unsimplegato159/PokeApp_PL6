@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="empty"></string>
+    <string name="title_list">Lista</string>
+    <string name="title_favorites">Favoritos</string>
+    <string name="pokemon_list">Listado de Pokemón</string>
+    <string name="pokemon_favorites">Mis Favoritos</string>
 </resources>

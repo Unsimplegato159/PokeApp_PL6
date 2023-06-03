@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.santiagotorres.pokeapp.R
 import com.santiagotorres.pokeapp.databinding.CardPokemonSearchBinding
+import com.santiagotorres.pokeapp.local.model.LocalPoke
 import com.santiagotorres.pokeapp.server.model.PokeResult
 
 class PokemonListAdapter(val pokemonClick: (Int) -> Unit): RecyclerView.Adapter<PokemonListAdapter.SearchViewHolder>() {
@@ -29,7 +30,6 @@ class PokemonListAdapter(val pokemonClick: (Int) -> Unit): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val pokemon = pokemonList[position]
         holder.bindPokemon(pokemon)
-
         holder.itemView.setOnClickListener { pokemonClick(position + 1) }
     }
 

@@ -2,10 +2,10 @@ package com.santiagotorres.pokeapp.local.repository
 
 import com.santiagotorres.pokeapp.local.PokeDao
 import com.santiagotorres.pokeapp.local.model.LocalPoke
-import com.santiagotorres.pokeapp.pokeapp
+import com.santiagotorres.pokeapp.Pokeapp
 
 class LocalPokeRepository {
-    private val pokeDao: PokeDao = pokeapp.database.PokeDao()
+    private val pokeDao: PokeDao = Pokeapp.database.PokeDao()
 
     suspend fun savePoke(localPoke: LocalPoke) {
         pokeDao.savePoke(localPoke)

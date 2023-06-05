@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.santiagotorres.pokeapp.local.PokeDatabase
 
-class pokeapp : Application() {
+class Pokeapp : Application() {
 
     companion object {
         lateinit var database : PokeDatabase

@@ -8,12 +8,14 @@ import com.santiagotorres.pokeapp.local.model.LocalPoke
 import com.santiagotorres.pokeapp.local.repository.LocalPokeRepository
 import com.santiagotorres.pokeapp.server.ApiService
 import com.santiagotorres.pokeapp.server.model.Pokemon
+import com.santiagotorres.pokeapp.ui.favorites.FavoritesFragment
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class PokeInfoViewModel() : ViewModel() {
 
@@ -47,7 +49,6 @@ class PokeInfoViewModel() : ViewModel() {
             override fun onFailure(call: Call<Pokemon>, t: Throwable) {
                 call.cancel()
             }
-
         })
     }
 
@@ -58,8 +59,6 @@ class PokeInfoViewModel() : ViewModel() {
             name= pokemon.name,
             height= pokemon.height,
             weight= pokemon.weight
-
-
         )
 
         viewModelScope.launch{
@@ -74,8 +73,6 @@ class PokeInfoViewModel() : ViewModel() {
             if(localPoke != null)
                 pokeFavorite=true
             _isPokeFavorite.postValue(pokeFavorite)
-
-
         }
     }
 
@@ -85,9 +82,8 @@ class PokeInfoViewModel() : ViewModel() {
             localPoke?.let {
                 localPokeRepository.deletePoke(localPoke)
                 _isPokeRemovedFromFavorites.postValue(true)
+                //localPokeRepository.getAllFavoritePokemon()
             }
         }
     }
-
-
 }

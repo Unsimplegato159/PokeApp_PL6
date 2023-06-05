@@ -6,7 +6,7 @@ import com.santiagotorres.pokeapp.local.model.LocalPoke
 @Dao
 interface PokeDao {
     @Insert
-    suspend fun  savePoke(poke: LocalPoke)
+    suspend fun savePoke(poke: LocalPoke)
 
     @Delete
     suspend fun deletePoke(poke: LocalPoke)

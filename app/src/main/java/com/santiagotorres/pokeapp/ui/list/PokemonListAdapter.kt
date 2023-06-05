@@ -6,15 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.santiagotorres.pokeapp.R
 import com.santiagotorres.pokeapp.databinding.CardPokemonSearchBinding
-import com.santiagotorres.pokeapp.local.model.LocalPoke
 import com.santiagotorres.pokeapp.server.model.PokeResult
 
 class PokemonListAdapter(val pokemonClick: (Int) -> Unit): RecyclerView.Adapter<PokemonListAdapter.SearchViewHolder>() {
     private var pokemonList: List<PokeResult> = emptyList<PokeResult>()
 
     fun setData(list: List<PokeResult>){
-        pokemonList = list
         notifyDataSetChanged()
+        pokemonList = list
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -22,18 +21,16 @@ class PokemonListAdapter(val pokemonClick: (Int) -> Unit): RecyclerView.Adapter<
         return SearchViewHolder(itemView)
     }
 
+
     override fun getItemCount(): Int {
         return pokemonList.size
     }
-
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val pokemon = pokemonList[position]
         holder.bindPokemon(pokemon)
         holder.itemView.setOnClickListener { pokemonClick(position + 1) }
     }
-
-    //class SearchViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     class SearchViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 

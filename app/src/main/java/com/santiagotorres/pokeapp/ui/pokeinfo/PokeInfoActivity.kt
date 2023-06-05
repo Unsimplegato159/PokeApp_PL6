@@ -24,12 +24,14 @@ class PokeInfoActivity : AppCompatActivity() {
         pokeinfoBinding = ActivityPokeinfoBinding.inflate(layoutInflater)
         setContentView(pokeinfoBinding.root)
 
-        viewModel = ViewModelProvider(this).get(PokeInfoViewModel::class.java)
+
+        viewModel = ViewModelProvider(this)[PokeInfoViewModel::class.java]
 
         initUI()
 
         viewModel.isPokeFavorite.observe(this, Observer { isPokeFavorite ->
             this.isPokeFavorite = isPokeFavorite
+
             if (isPokeFavorite)
                 pokeinfoBinding.favoritesImageView.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -37,6 +39,7 @@ class PokeInfoActivity : AppCompatActivity() {
                         R.drawable.ic_favorite
                     )
                 )
+
             else
                 pokeinfoBinding.favoritesImageView.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -50,6 +53,7 @@ class PokeInfoActivity : AppCompatActivity() {
             if (isPokeRemoved) {
                 Toast.makeText(this, "Eliminado de favoritos", Toast.LENGTH_SHORT).show()
             }
+           // FavoritesFragment().viewModel.loadFavoritePokemonList()
         })
     }
 
@@ -58,6 +62,8 @@ class PokeInfoActivity : AppCompatActivity() {
         intent.putExtra("favoriteChanged", isFavoriteChanged)
         setResult(Activity.RESULT_OK, intent)
         super.onBackPressed()
+        //supportFragmentManager.beginTransaction().replace(R.id.container, FavoritesFragment()).commit()
+
     }
 
     private fun initUI() {
@@ -65,29 +71,38 @@ class PokeInfoActivity : AppCompatActivity() {
 
         viewModel.getPokemonInfo(id)
 
-        viewModel.pokemonInfo.observe(this, Observer { pokemon ->
+        viewModel.pokemonInfo.observe(this) { pokemon ->
             pokeinfoBinding.nameTextView.text = pokemon.name
             pokeinfoBinding.heightText.text = "Altura: ${pokemon.height / 10.0}m"
             pokeinfoBinding.weightText.text = "Peso: ${pokemon.weight / 10.0}Kg"
 
             viewModel.searchPoke(pokemon.id)
 
+            supportActionBar?.title = "${pokemon.name}"
+
+
             Glide.with(this).load(pokemon.sprites.frontDefault).into(pokeinfoBinding.imageView)
 
+
             pokeinfoBinding.favoritesImageView.setOnClickListener {
+
                 if (isPokeFavorite) {
                     isPokeFavorite = false
                     pokeinfoBinding.favoritesImageView.setImageResource(R.drawable.ic_favorite_border)
                     viewModel.deletePoke(pokemon)
                     isFavoriteChanged = true
+
+
                 } else {
                     isPokeFavorite = true
                     pokeinfoBinding.favoritesImageView.setImageResource(R.drawable.ic_favorite)
                     viewModel.savePoke(pokemon)
                     isFavoriteChanged = true
+                    Toast.makeText(this, "Agregado a favoritos", Toast.LENGTH_SHORT).show()
+
                 }
             }
-        })
+        }
     }
 
     companion object {
